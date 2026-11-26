@@ -24,21 +24,15 @@
             var kw = document.getElementById('keyword').value;
             if(!kw) { alert("请输入要搜索的书名"); return; }
             
-            // 将输入的中文书名进行 URL 编码
             var encodedKw = encodeURIComponent(kw);
             
-            // 拼接深图前端网页的检索地址，强制写入所有可能的限定参数
-            var url = "https://www.szlib.org.cn/m/search/retrieval_result.html?"
-                    + "loanAddrList=LGL165&local=LGF031"  // 网页前端自带的馆藏地/服务点参数
-                    + "&backbutton=1"
-                    + "&keyword=" + encodedKw
-                    + "&v_index=title"
-                    + "&v_tablearray=bibliosm,serbibm,apabibibm,mmbibm,"
-                    + "&cirtype="
-                    + "&addr=LGL165&v_local=LGF031"       // 接口文档里的参数
-                    + "&v_secondquery=fq%3Dlocal%3ALGF031"; // 分面检索参数
+            // 使用你提供的 PC 端 OPAC 接口路径，并带上 v_local 参数
+            var url = "https://www.szlib.org.cn/opac/search?"
+                    + "q=" + encodedKw 
+                    + "&searchWay=title" // 按题名检索
+                    + "&v_local=LGF031"  // 馆藏地点限定（你提供的）
+                    + "&library=all";
             
-            // 跳转到结果页
             window.location.href = url;
         }
     </script>
